@@ -23,10 +23,15 @@ mongoose.connect(process.env.DB_URL);
 
 const PORT = process.env.PORT || 3001;
 
-app.get('/test', (request, response) => {
+app.get('/books', getBooks);
+async function getBooks(req, res, next) {
+  try {
+    let results = await Book.find({});
+    res.status(200).send(results);
+  } catch(error) {
+    next(error);
+  }
+}
 
-  response.send('test request received')
-
-})
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
