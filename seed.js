@@ -14,16 +14,23 @@ async function seed() {
     description: 'Two annoying kids try to ruin a cats day',
     status: 'New',
   });
+  console.log('Cat in the hat added')
 
   await Book.create({
     title: 'Horton Hears a Who',
     description: 'An elephant hears voices in a plant while strolling around Cap Hill',
     status: 'Used',
   });
+  console.log('Horton was added')
 
   await Book.create({
     title: '1 Fish 2 Fish',
     description: 'A sushi restaurant is definitly gonna run out of food for dinner',
     status: 'New',
   });
+  console.log('Fish was added');
+  mongoose.disconnect();
+
 }
+
+seed();
