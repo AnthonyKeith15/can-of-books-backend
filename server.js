@@ -7,6 +7,8 @@ const Book = require('./models/book.js')
 
 const app = express();
 app.use(cors());
+ // we must have this in order to process json data from a request
+app.use(express.json());
 
 // bring in mongoose
 const mongoose = require('mongoose');
@@ -24,6 +26,9 @@ mongoose.connect(process.env.DB_URL);
 const PORT = process.env.PORT || 3001;
 
 app.get('/books', getBooks);
+app.post('/books', postBooks);
+app.delete('/books/:id', deleteBooks)
+
 async function getBooks(req, res, next) {
   try {
     let results = await Book.find({});
@@ -32,6 +37,26 @@ async function getBooks(req, res, next) {
     next(error);
   }
 }
+
+async function postBooks(req, res, next) {
+  try {
+    let createdBook = await Book.create(req.body);
+    res.status(200).send(createdBook)
+  } catch(error){
+    next(error);
+  }
+}
+
+async function deleteBooks(req, res, next){
+  try{
+    let id = req.params.id;
+    await Book.findByIdAndDelete(id);
+    res.status(200).send("Book Deleted")
+  } catch(error){
+    next(error);
+  }
+}
+
 
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
