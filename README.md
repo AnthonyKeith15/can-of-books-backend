@@ -19,4 +19,14 @@ Using mongoDB
 Should be done by friday
 
 ## Credit and Collaborations
-Kam helped me alot
+Kam helped me alot.
+
+Name of feature: Setting up back end
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 1300
+
+Finish time: 1700
+
+Actual time needed to complete: 3 hours
