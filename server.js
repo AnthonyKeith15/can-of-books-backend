@@ -27,7 +27,8 @@ const PORT = process.env.PORT || 3001;
 
 app.get('/books', getBooks);
 app.post('/books', postBooks);
-app.delete('/books/:id', deleteBooks)
+app.delete('/books/:id', deleteBooks);
+app.put('/books/:id', putBooks)
 
 async function getBooks(req, res, next) {
   try {
@@ -56,6 +57,20 @@ async function deleteBooks(req, res, next){
     next(error);
   }
 }
+async function putBooks(req, res, next){
+  try{
+    let id = req.params.id;
+    let updatedBook = req.body;
+    // findByIdAndUpdate method takes in three arguments
+    // 1. ID 2. Updated data object 3. Options object
+    let updatedBookFromDatabase = await Book.findByIdAndUpdate(id, updatedBook, { new: true, overwrite: true });
+    res.status(200).send(updatedBookFromDatabase)
+  } catch(error){
+    next(error);
+  }
+}
+
+
 
 
 
